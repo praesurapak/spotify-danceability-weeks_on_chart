@@ -3,6 +3,7 @@ Relationship analysis of danceability of a song and number of weeks a song stays
 
 This project is a final project of DSO 510: Business Analytics class at USC Marshall Business School (M.S. Business Analytics)
 Group members: Prae Kongchan, Ninh Nguyen, Jacqueline Guerra, Huiling Xiao, Van Le, and Joyce Xinyi Jiang
+Data Description: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis
 
 # Introduction
 What is the similarity between “The Next Episode” by Dr Dre and “Every Breath You Take” by The Police? Both songs have a danceability score of 0.8/1 and above. According to Spotify, danceability is defined as “how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity.” With the rise of TikTok, the danceability of a song became more evident when it is featured in a myriad of short videos, often associated with trends or dance challenges. For example, HUMBLE. by Kendrick Lamar, has a danceability score of 0.9/1 and is featured 761,000 times on TikTok videos; with a peak rank of 1 on Spotify and stayed on the charts for 96 weeks. Parallely, we question whether the danceability of the song contributes to its popularity, which in turn impacts the length of time the song stays on the chart. Hence, we seek to answer the question, “Is there a relationship between danceability and the length of time a song spends on chart?”.
@@ -22,5 +23,23 @@ Thus, we have merged the datasets by using artist names and song names as the id
 <img width="579" alt="descriptive analytics" src="https://user-images.githubusercontent.com/112535634/212464255-a484375e-5384-40cc-b163-f446e5ece407.png">
 Figure 1: Descriptive Statistics Table
 
+
 There are extreme outliers in our dataset. The maximum value for Streams and Weeks On Chart is significantly far from the mean. They validated our decision of removing outliers and transforming the data to better prepare our model. Moreover, it is evident that it is impossible to have 0 danceability in a song as the minimum value is 0.398. This emphasizes the fact that our ideal experiment with random assignment of danceability is unrealistic.
 
+# Model Explanation
+<img width="402" alt="Model 1" src="https://user-images.githubusercontent.com/112535634/212464315-07536c8c-3433-41a6-b04e-21dcae430703.png">
+Figure 2: Preliminary Model: log(weeks_on_chart) = b0 + b1log(danceability) + b2(tiktok) + b3(streams) + b4(loudness) + b5log(energy)
+
+<img width="603" alt="Correlation" src="https://user-images.githubusercontent.com/112535634/212464328-70bdc60d-c87c-4845-b809-841443f29346.png">
+Figure 3: Correlation Table
+
+We included all variables in our preliminary model; however, after we ran a correlation, we found that Loudness and Energy were highly correlated at 0.713. Given this is significantly higher than the correlation between Log Weeks on Chart and Log Danceability (0.017), we removed Energy to avoid any issues with collinearity since it was the less significant variable. Once Energy was removed, Loudness became slightly more significant, and the R-squared value remained the same as 0.16, indicating the strength of the model had not changed.
+
+
+<img width="375" alt="Model 2" src="https://user-images.githubusercontent.com/112535634/212464348-72dbf77b-29f7-4d2a-83b9-ed5de69aff3b.png">
+Figure 4: Final Model: log(weeks_on_chart) = b0 + b1log(danceability) + b2(tiktok) + b3(streams) + b4(loudness)
+
+In the final model with Energy removed, our primary variable, Log Danceability, was not significant with a p-value of 0.56. Additionally, Log Danceability had only a very minor effect on weeks on chart, with a 1% increase in Log Danceability corresponding with a 0.18% decrease in Log Weeks on Chart. This was an expected result given the two variables did not show a linear relationship during our exploratory data analysis. Although Log Danceability was not a significant variable, our three control variables all ended up being significant in terms of p-value, but also in their effect on Log Weeks on Chart. After taking the log transformation of the coefficients, the model showed if a song was on TikTok (value of 1), it corresponded to a 295% increase in Log Weeks on Chart. If there was a 1% increase in Streams it would correspond to a 1.47% increase in Log Weeks on Chart. And finally, if there was a 1% increase in Loudness there would be a 12.2% increase in Log Weeks on Chart.
+
+# Conclusion & Limitations
+Therefore, we fail to reject the null hypothesis that there is no relationship between danceability and number of weeks on chart at a significance level of 0.05 and p-value of 0.5650. Additionally, our control variables, TikTok, Streams and Loudness, are observed to be a more significant predictor of weeks of chart, compared to the main variable, danceability. We have assumed that danceable songs will lead to popularity on TikTok due to dance trends, however, the low R-squared value of 0.16 indicates that there are many impactful elements outside of our model. While there may be a potential relationship between interaction between TikTok and weeks spent on chart, other elements such as seasonality, movies and tv, radio play, artist news could also be a potential influence factor. Overall, although danceability is not a primary factor in music popularity, music popularity is tough to predict in general. As music is often enjoyed in a social context and subjected to individual taste, the joy of music can be vested in its unpredictability.
