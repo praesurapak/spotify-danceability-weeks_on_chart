@@ -5,6 +5,17 @@ This project is a final project of DSO 510: Business Analytics class at USC Mars
 
 Group members: Prae Kongchan, Ninh Nguyen, Jacqueline Guerra, Huiling Xiao, Van Le, and Joyce Xinyi Jiang
 
+Files included:
+
+1. DSO 510 Spotify.R: Data Cleaning & Preparation 
+2. Group18_Final_Spotify.csv: Final Data (Cleaned)
+3. Group18_Final_SpotifyModel.R: Models
+4. Spotify Visualizations.ipynb: Data Visualization
+5. DSO510_ Spotify Dataset_vf.pdf: Final Presentation
+6. TikTok_songs_2022.csv: TikTok Data
+7. spotify_artist_data.csv: Artists' Stats
+8. spotify_top_charts_22.csv: Spotify Top Chart Songs
+
 Data Description: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis
 
 # Introduction
