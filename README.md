@@ -35,11 +35,13 @@ Figure 2: Preliminary Model: log(weeks_on_chart) = b0 + b1log(danceability) + b2
 <img width="603" alt="Correlation" src="https://user-images.githubusercontent.com/112535634/212464328-70bdc60d-c87c-4845-b809-841443f29346.png">
 Figure 3: Correlation Table
 
+
 We included all variables in our preliminary model; however, after we ran a correlation, we found that Loudness and Energy were highly correlated at 0.713. Given this is significantly higher than the correlation between Log Weeks on Chart and Log Danceability (0.017), we removed Energy to avoid any issues with collinearity since it was the less significant variable. Once Energy was removed, Loudness became slightly more significant, and the R-squared value remained the same as 0.16, indicating the strength of the model had not changed.
 
 
 <img width="375" alt="Model 2" src="https://user-images.githubusercontent.com/112535634/212464348-72dbf77b-29f7-4d2a-83b9-ed5de69aff3b.png">
 Figure 4: Final Model: log(weeks_on_chart) = b0 + b1log(danceability) + b2(tiktok) + b3(streams) + b4(loudness)
+
 
 In the final model with Energy removed, our primary variable, Log Danceability, was not significant with a p-value of 0.56. Additionally, Log Danceability had only a very minor effect on weeks on chart, with a 1% increase in Log Danceability corresponding with a 0.18% decrease in Log Weeks on Chart. This was an expected result given the two variables did not show a linear relationship during our exploratory data analysis. Although Log Danceability was not a significant variable, our three control variables all ended up being significant in terms of p-value, but also in their effect on Log Weeks on Chart. After taking the log transformation of the coefficients, the model showed if a song was on TikTok (value of 1), it corresponded to a 295% increase in Log Weeks on Chart. If there was a 1% increase in Streams it would correspond to a 1.47% increase in Log Weeks on Chart. And finally, if there was a 1% increase in Loudness there would be a 12.2% increase in Log Weeks on Chart.
 
