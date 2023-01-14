@@ -22,26 +22,29 @@ To inform our analysis, we have obtained two datasets from Kaggle, sourced from 
 Thus, we have merged the datasets by using artist names and song names as the identifiers. To prepare the data, we first created a dummy variable for TikTok. If there is a match of a track’s name between datasets, it will return 1 for a song that appears on TikTok; 0 otherwise. We removed extreme outliers (values above 95th percentile and 5th percentile) and transformed the data which are right-skewed by logging the variables. The final dataset has 447 rows in total and contains columns like artist name, number of streams, track name, log(number of weeks on chart), log(danceability), log(energy), appearance on TikTok, etc. Additionally, each row represents individual songs with unique attributes. However, songs from the same artist will share the same artist details. Finally, the outcome variable of interest for this analysis would be the log of number of weeks on the chart.
 
 # Descriptive Analytics
-<img width="579" alt="descriptive analytics" src="https://user-images.githubusercontent.com/112535634/212464255-a484375e-5384-40cc-b163-f446e5ece407.png">
-Figure 1: Descriptive Statistics Table
 
+<img width="579" alt="descriptive analytics" src="https://user-images.githubusercontent.com/112535634/212464255-a484375e-5384-40cc-b163-f446e5ece407.png">
+
+Figure 1: Descriptive Statistics Table
 
 There are extreme outliers in our dataset. The maximum value for Streams and Weeks On Chart is significantly far from the mean. They validated our decision of removing outliers and transforming the data to better prepare our model. Moreover, it is evident that it is impossible to have 0 danceability in a song as the minimum value is 0.398. This emphasizes the fact that our ideal experiment with random assignment of danceability is unrealistic.
 
 # Model Explanation
+
 <img width="402" alt="Model 1" src="https://user-images.githubusercontent.com/112535634/212464315-07536c8c-3433-41a6-b04e-21dcae430703.png">
+
 Figure 2: Preliminary Model: log(weeks_on_chart) = b0 + b1log(danceability) + b2(tiktok) + b3(streams) + b4(loudness) + b5log(energy)
 
 <img width="603" alt="Correlation" src="https://user-images.githubusercontent.com/112535634/212464328-70bdc60d-c87c-4845-b809-841443f29346.png">
-Figure 3: Correlation Table
 
+Figure 3: Correlation Table
 
 We included all variables in our preliminary model; however, after we ran a correlation, we found that Loudness and Energy were highly correlated at 0.713. Given this is significantly higher than the correlation between Log Weeks on Chart and Log Danceability (0.017), we removed Energy to avoid any issues with collinearity since it was the less significant variable. Once Energy was removed, Loudness became slightly more significant, and the R-squared value remained the same as 0.16, indicating the strength of the model had not changed.
 
 
 <img width="375" alt="Model 2" src="https://user-images.githubusercontent.com/112535634/212464348-72dbf77b-29f7-4d2a-83b9-ed5de69aff3b.png">
-Figure 4: Final Model: log(weeks_on_chart) = b0 + b1log(danceability) + b2(tiktok) + b3(streams) + b4(loudness)
 
+Figure 4: Final Model: log(weeks_on_chart) = b0 + b1log(danceability) + b2(tiktok) + b3(streams) + b4(loudness)
 
 In the final model with Energy removed, our primary variable, Log Danceability, was not significant with a p-value of 0.56. Additionally, Log Danceability had only a very minor effect on weeks on chart, with a 1% increase in Log Danceability corresponding with a 0.18% decrease in Log Weeks on Chart. This was an expected result given the two variables did not show a linear relationship during our exploratory data analysis. Although Log Danceability was not a significant variable, our three control variables all ended up being significant in terms of p-value, but also in their effect on Log Weeks on Chart. After taking the log transformation of the coefficients, the model showed if a song was on TikTok (value of 1), it corresponded to a 295% increase in Log Weeks on Chart. If there was a 1% increase in Streams it would correspond to a 1.47% increase in Log Weeks on Chart. And finally, if there was a 1% increase in Loudness there would be a 12.2% increase in Log Weeks on Chart.
 
