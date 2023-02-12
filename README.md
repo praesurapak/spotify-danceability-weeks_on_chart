@@ -1,7 +1,7 @@
 # Spotify: Relationship between Danceability & Number of Weeks on Chart of a song
 Relationship analysis of danceability of a song and number of weeks a song stays on Spotify chart based on observational data that contains information about music attributes of each song, artists' stats, and the popularity of each song.
 
-This project is a final project of DSO 510: Business Analytics class at USC Marshall School of Business (M.S. Business Analytics)
+This project is a final project of DSO 510: Business Analytics class at USC Marshall School of Business (Fall 2022)
 
 Group members: Prae Kongchan, Ninh Nguyen, Jacqueline Guerra, Huiling Xiao, Van Le, and Joyce Xinyi Jiang
 
